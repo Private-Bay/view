@@ -19,6 +19,25 @@
       overflow-y: scroll;
     }
 
+    /* Custom scrollbar styling */
+    .chat::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    .chat::-webkit-scrollbar-track {
+      background: #d1ccc0;
+      border-radius: 10px;
+    }
+
+    .chat::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+
+    .chat::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
     .msg {
       max-width: 75%;
       padding: 8px 12px;
@@ -63,6 +82,9 @@
           div.innerHTML = `${msg}<div class="time">${time}</div>`;
           chat.appendChild(div);
         });
+
+        // Auto-scroll to bottom (most recent messages)
+        chat.scrollTop = chat.scrollHeight;
       });
   </script>
 
