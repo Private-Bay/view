@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>WhatsApp Chat Viewer</title>
+  <style>
+    body {
+      background: #ece5dd;
+      font-family: Arial, sans-serif;
+    }
+
+    .chat {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 10px;
+      background: #e5ddd5;
+      height: 90vh;
+      overflow-y: scroll;
+    }
+
+    .msg {
+      max-width: 75%;
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .left {
+      background: white;
+    }
+
+    .right {
+      background: #dcf8c6;
+      margin-left: auto;
+    }
+
+    .time {
+      font-size: 10px;
+      color: gray;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chat" id="chat"></div>
+
+  <script>
+    fetch("chat.txt")
+      .then(res => res.text())
+      .then(text => {
+        const chat = document.getElementById("chat");
+        text.split("\n").forEach(line => {
+          const match = line.match(/(.+?), (.+?) - (.*?): (.*)/);
+          if (!match) return;
+
+          const [, date, time, user, msg] = match;
+          const div = document.createElement("div");
+          div.className = "msg " + (user === "Tabinda Personal" ? "right" : "left");
+          div.innerHTML = `${msg}<div class="time">${time}</div>`;
+          chat.appendChild(div);
+        });
+      });
+  </script>
+
+</body>
+
+</html>
